@@ -81,7 +81,7 @@ public class LiveScreenActivity extends AppCompatActivity {
         webSettings.setJavaScriptEnabled(true);
         liveVideos.setWebViewClient(new WebViewClient());
         liveVideos.setWebChromeClient(new WebChromeClient());
-        String video = "<html><head></head><body><iframe src=\"https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FNightlounge%2Fvideos%2F10154399304191779%2F&width=500&show_text=false&appId=958121764316415&height=500\" width=\"500\" height=\"500\" style=\"border:none;overflow:hidden\" scrolling=\"no\" frameborder=\"0\" allowTransparency=\"true\"></iframe></body></html>";
+        String video = "<html><head></head><body><iframe src=\"https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FNightlounge%2Fvideos%2F10154399304191779%2F&data-autoplay=true&width=500&show_text=false&appId=958121764316415&height=500\" width=\"500\" height=\"500\" style=\"border:none;overflow:hidden\" scrolling=\"no\" frameborder=\"0\" allowTransparency=\"true\"></iframe></body></html>";
         liveVideos.loadData(video, "text/html", "utf-8");
 
 
