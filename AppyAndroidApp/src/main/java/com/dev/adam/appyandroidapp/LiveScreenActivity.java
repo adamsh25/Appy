@@ -19,6 +19,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.dev.adam.appyandroidapp.utils.FacebookUtils;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -76,12 +77,15 @@ public class LiveScreenActivity extends AppCompatActivity {
         LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
         AccessToken token = AccessToken.getCurrentAccessToken();
         Profile p = Profile.getCurrentProfile();
+
+        FacebookUtils.getUserLiveVideosToEmbed(p);
+
         WebView liveVideos = (WebView) findViewById(R.id.appy_live_videos);
         WebSettings webSettings = liveVideos.getSettings();
         webSettings.setJavaScriptEnabled(true);
         liveVideos.setWebViewClient(new WebViewClient());
         liveVideos.setWebChromeClient(new WebChromeClient());
-        String video = "<html><head></head><body><iframe src=\"https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FNightlounge%2Fvideos%2F10154399304191779%2F&data-autoplay=true&width=500&show_text=false&appId=958121764316415&height=500\" width=\"500\" height=\"500\" style=\"border:none;overflow:hidden\" scrolling=\"no\" frameborder=\"0\" allowTransparency=\"true\"></iframe></body></html>";
+        String video = "<html><head></head><body><iframe src=\"https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FNightlounge%2Fvideos%2F10154399304191779%2F&data-autoplay=true&width=500&show_text=false&appId=958121764316415&height=300\" width=\"300\" height=\"300\" style=\"border:none;overflow:hidden\" scrolling=\"no\" frameborder=\"0\" allowTransparency=\"true\"></iframe></body></html>";
         liveVideos.loadData(video, "text/html", "utf-8");
 
 
