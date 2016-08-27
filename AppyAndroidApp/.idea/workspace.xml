@@ -9,12 +9,7 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c5abfed1-e916-4599-b0a7-989e443c51e1" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/dev/adam/appyandroidapp/LiveScreenActivity.java" afterPath="$PROJECT_DIR$/src/main/java/com/dev/adam/appyandroidapp/LiveScreenActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/dev/adam/appyandroidapp/utils/FacebookUtils.java" afterPath="$PROJECT_DIR$/src/main/java/com/dev/adam/appyandroidapp/utils/FacebookUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/activity_live_screen.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_live_screen.xml" />
-    </list>
+    <list default="true" id="c5abfed1-e916-4599-b0a7-989e443c51e1" name="Default" comment="" />
     <ignored path="AppyAndroidApp.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/build/classes/" />
@@ -1514,7 +1509,13 @@
       <option name="project" value="LOCAL" />
       <updated>1471567350526</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="https://github.com/adamsh25/Appy/issues/2">
+      <created>1472308563310</created>
+      <option name="number" value="00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1472308563310</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1527,7 +1528,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1358" y="-320" width="1936" height="1056" extended-state="6" />
+    <frame x="1358" y="-320" width="1936" height="1056" extended-state="7" />
     <editor active="false" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32962137" sideWeight="0.4978678" order="6" side_tool="false" content_ui="tabs" />
