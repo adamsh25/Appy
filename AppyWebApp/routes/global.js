@@ -1,4 +1,4 @@
-var errorHandler = require('../middleware/errorHandler');
+var errorhandler = require('errorhandler');
 
 /**
  * Global routes.  These should be included LAST for wildcard 404 route
@@ -8,12 +8,12 @@ module.exports = function(app) {
     
     // manual 500 error
     app.get('/500', function(req, res) {
-        throw new Error('This is a 500 Error');
+        res.send(500, { error: 'Sorry something bad happened!' });
     });  
     
     // wildcard route for 404 errors
     app.get('/*', function(req, res) {
-        console.log(req.path)
-        throw new errorHandler.NotFound;
+        console.log(req.path);
+        res.send(404, { error: 'Sorry Not Found' });
     });
-}
+};
