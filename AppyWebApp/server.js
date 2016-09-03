@@ -11,7 +11,7 @@ var express = require('express')
     , mongoose = require('mongoose')
     , cookieParser = require('cookie-parser')
     , session = require('express-session')
-    , exspressStatic = require('express-static')
+    , expressStatic = require('express-static')
     , errorHandler = require('errorhandler')
     , path = require('path');
 
@@ -57,7 +57,7 @@ app.use(session({
     cookie: {secure: true}
 }));
 app.use(require('less-middleware')({src: __dirname + '/public'}));
-app.use(exspressStatic(path.join(__dirname, 'public')));
+app.use(expressStatic(path.join(__dirname, 'public')));
 
 if (app.get('env') === 'development') {
     app.use(errorHandler());
