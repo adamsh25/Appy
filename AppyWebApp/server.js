@@ -39,7 +39,6 @@ require('./routes/home')(router);
 require('./routes/event')(router);
 require('./routes/eventDataSource')(router);
 require('./routes/eventVideo')(router);
-app.use('/', router);
 
 var port = process.env.PORT || 3030;
 
@@ -63,6 +62,7 @@ if (app.get('env') === 'development') {
     app.use(errorHandler());
 }
 
+app.use('/', router);
 
 
 /**
