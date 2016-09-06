@@ -20,7 +20,7 @@ var express = require('express')
  * CONFIGURATION
  * -------------------------------------------------------------------------------------------------
  * load configuration settings from ENV, then settings.json.  Contains keys for OAuth logins. See
- * settings.example.json.
+ * settings.json.
  **/
 nconf.env().file({file: 'settings.json'});
 
