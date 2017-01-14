@@ -16,10 +16,11 @@ module.exports = {
 
             for (var i = 0; i < eventsDataSources.length; i++) {
                 var eventDataSource = eventsDataSources[i];
-                var dataSource = DataSourceFactory.createDataSource({
+                var options = {
                     dataSource: eventDataSource.source,
-                    data: eventDataSource
-                });
+                    eventDataSource: eventDataSource
+                };
+                var dataSource = DataSourceFactory.createDataSource(options);
                 dataSource.fetchData();
             }
 

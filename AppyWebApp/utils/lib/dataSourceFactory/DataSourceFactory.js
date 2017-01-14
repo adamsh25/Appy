@@ -3,7 +3,8 @@
  */
 var FacebookDataSource = require('../dataSourceFactory/facebook');
 var DataSourceFactory = function DataSourceFactory(options) {
-    this.dataSource = options.dataSource;
+    this.options = options;
+    this.dataSource = this.options.dataSource;
     switch (this.dataSource) {
         case "facebook":
             this.dataSourceObject = new FacebookDataSource(options);

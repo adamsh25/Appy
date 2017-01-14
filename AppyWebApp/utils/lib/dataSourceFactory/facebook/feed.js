@@ -2,7 +2,7 @@
  * Created by adam on 06/09/2016.
  */
 
-var facebookUtils = require("../../socialMediaUtils/facebookUtils");
+var facebookAPIUtils = require("../../socialMediaUtils/facebookAPIUtils");
 
 var FacebookPageDataSource  = function FacebookPageDataSource(options) {
     this.options = options;

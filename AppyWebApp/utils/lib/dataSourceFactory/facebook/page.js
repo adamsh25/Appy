@@ -2,62 +2,100 @@
  * Created by adam on 06/09/2016.
  */
 
-var facebookUtils = require("../../socialMediaUtils/facebookUtils");
+var facebookAPIUtils = require("../../socialMediaUtils/facebookAPIUtils")
+    , facebookUtils = require("../facebook/utils")
+    , EventDataSource = require('../../../../models/EventDataSource')
+    , EventVideo = require('../../../../models/EventVideo');
 
-var FacebookPageDataSource  = function FacebookPageDataSource(options) {
+var FacebookPageDataSource = function FacebookPageDataSource(options) {
     this.options = options;
+    this.dataSource = this.options.dataSource;
+    this.dataSourceType = this.options.dataSourceType;
+    this.eventDataSource = this.options.eventDataSource;
 };
 
 FacebookPageDataSource.prototype.fetchData = function () {
     console.log("Start Fetching Data From Facebook Page");
-    fetchPageDescription(this.options.data);
-    fetchPagePicture(this.options.data);
-    fetchPageEvents(this.options.data);
-    fetchPageFeed(this.options.data);
-    fetchPagePosts(this.options.data);
-    fetchPageVideos(this.options.data);
+    this.fetchPageDescription();
+    this.fetchPagePicture();
+    this.fetchPageEvents();
+    this.fetchPageFeed();
+    this.fetchPagePosts();
+    this.fetchPageVideos();
 };
 
-function fetchPageDescription(eventDataSource){
-    var pageDescription = facebookUtils.getPageDescription(eventDataSource.sourceID);
-    console.log(pageDescription);
+FacebookPageDataSource.prototype.fetchPageDescription = function () {
+    facebookAPIUtils.getPageDescription(this.eventDataSource.sourceID, function (err, res) {
+        console.log("fetched page description");
 
-}
+    });
+};
 
-function fetchPagePicture(eventDataSource){
-    var pagePicture = facebookUtils.getPagePicture(eventDataSource.sourceID);
-    console.log(pagePicture);
+FacebookPageDataSource.prototype.fetchPagePicture = function () {
+    facebookAPIUtils.getPagePicture(this.eventDataSource.sourceID, function (err, res) {
+        console.log("fetched page picture");
 
-}
+    });
+};
 
-function fetchPageEvents(eventDataSource){
-    facebookUtils.getPageEvents(eventDataSource.sourceID, function (err, res) {
-        console.log(res);
+FacebookPageDataSource.prototype.fetchPageEvents = function () {
+    var self = this;
+    facebookAPIUtils.getPageEvents(self.eventDataSource.sourceID, function onGetEvents(err, res) {
+        var events = res.data;
+        for (var i = 0; i < events.length; i++) {
+            var eventPageDataSource = events[i];
+            var instance = new EventDataSource();
+            instance.source = self.dataSource;
+            instance.sourceID = eventPageDataSource.id;
+            instance.sourceType = "event";
+            instance.event = self.eventDataSource.event;
+            instance.save(function (err) {
+                if (err) {
+                    switch (err.code) {
+                        case 11000:
+                            // Duplicate entry, TODO Adam: optimize querying from facebook API.
+                            break;
+                        default:
+                            console.error("error saving new event data source e:" + err);
+                            break;
+                    }
+                }
+            });
+        }
+        console.log("fetched page events");
+
     });
 
 
-}
+};
 
-function fetchPageFeed(eventDataSource){
-    var pageFeed = facebookUtils.getPageFeed(eventDataSource.sourceID);
-
-    console.log(pageFeed);
-
-}
-
-function fetchPagePosts(eventDataSource){
-    var pagePosts = facebookUtils.getPagePosts(eventDataSource.sourceID);
-
-    console.log(pagePosts);
-
-}
-
-function fetchPageVideos(eventDataSource){
-    var pageVideos = facebookUtils.getPageVideos(eventDataSource.sourceID);
+FacebookPageDataSource.prototype.fetchPageFeed = function () {
+    facebookAPIUtils.getPageFeed(this.eventDataSource.sourceID, function (err, res) {
+        console.log("fetched page feed");
+    });
 
 
-    console.log(pageVideos);
+};
 
-}
+FacebookPageDataSource.prototype.fetchPagePosts = function () {
+    facebookAPIUtils.getPagePosts(this.eventDataSource.sourceID, function (err, res) {
+        console.log("fetched page posts");
+    });
+
+
+};
+
+FacebookPageDataSource.prototype.fetchPageVideos = function () {
+    var self = this;
+    facebookAPIUtils.getPageVideos(this.eventDataSource.sourceID, function (err, res) {
+        var videos = res.data;
+        if(!err) {
+            facebookUtils.handleFetchedVideos(self, videos);
+        }else{
+            console.error('error in fetchEventVideos. e: ' + err);
+        }
+    });
+
+};
 
 module.exports = FacebookPageDataSource;

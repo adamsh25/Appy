@@ -5,9 +5,10 @@ var graph = require('fbgraph')
     , nconf = require('nconf')
     , util = require('util');
 
+
 var facebookConf = nconf.get('facebook');
 
-var facebookUtils = {
+var facebookAPIUtils = {
     extendAccessToken: function () {
         // extending static access token
         graph.extendAccessToken({
@@ -27,7 +28,7 @@ var facebookUtils = {
         }, function (err, facebookRes) {
         });
     },
-    getPageDescription: function (pageID) {
+    getPageDescription: function (pageID, callback) {
         console.log("Start getPageDescription");
         var desc = null;
         var path = pageID;
@@ -50,23 +51,19 @@ var facebookUtils = {
             ",description"
         };
         try {
-            graph.get(path, params, function (err, res) {
-                console.log(res);
-            });
+            graph.get(path, params, callback);
         } catch (e) {
             console.error(util.format('error in getPageVideos, e:%s', e))
         }
         return desc;
     },
-    getPagePicture: function (pageID) {
+    getPagePicture: function (pageID, callback) {
         console.log("Start getPagePicture");
         var picture = null;
         var path = util.format("%s/%s", pageID, "picture");
         var params = {};
         try {
-            graph.get(path, params, function (err, res) {
-                console.log(res);
-            });
+            graph.get(path, params, callback);
         } catch (e) {
             console.error(util.format('error in getPageVideos, e:%s', e))
         }
@@ -82,35 +79,31 @@ var facebookUtils = {
             console.error(util.format('error in getPageVideos, e:%s', e))
         }
     },
-    getPageFeed: function (pageID) {
+    getPageFeed: function (pageID, callback) {
         console.log("Start getPageEvent");
         var feed = [];
         var path = util.format("%s/%s", pageID, "feed");
         var params = {fields: ""};
         try {
-            graph.get(path, params, function (err, res) {
-                console.log(res);
-            });
+            graph.get(path, params, callback);
         } catch (e) {
             console.error(util.format('error in getPageVideos, e:%s', e))
         }
         return feed;
     },
-    getPagePosts: function (pageID) {
+    getPagePosts: function (pageID, callback) {
         console.log("Start getPagePosts");
         var events = [];
         var path = util.format("%s/%s", pageID, "posts");
         var params = {};
         try {
-            graph.get(path, params, function (err, res) {
-                console.log(res);
-            });
+            graph.get(path, params, callback);
         } catch (e) {
             console.error(util.format('error in getPageVideos, e:%s', e))
         }
         return events;
     },
-    getPageVideos: function (pageID) {
+    getPageVideos: function (pageID, callback) {
         console.log("Start getPageVideos");
         var videos = [];
         var path = util.format("%s/%s", pageID, "videos");
@@ -122,9 +115,23 @@ var facebookUtils = {
             ",place"
         };
         try {
-            graph.get(path, params, function (err, res) {
-                console.log(res);
-            });
+            graph.get(path, params, callback);
+        } catch (e) {
+            console.error(util.format('error in getPageVideos, e:%s', e))
+        }
+        return videos;
+    },
+    getEventVideos: function (eventID, callback) {
+        console.log("Start getEventVideos");
+        var videos = [];
+        var path = util.format("%s/%s", eventID, "videos");
+        var params = {
+            fields: "embed_html" +
+            ",source" +
+            ",created_time"
+        };
+        try {
+            graph.get(path, params, callback);
         } catch (e) {
             console.error(util.format('error in getPageVideos, e:%s', e))
         }
@@ -133,5 +140,6 @@ var facebookUtils = {
 
 };
 
-facebookUtils.authenticate();
-module.exports = facebookUtils;
+facebookAPIUtils.authenticate();
+
+module.exports = facebookAPIUtils;

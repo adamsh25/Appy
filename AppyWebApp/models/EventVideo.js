@@ -1,7 +1,8 @@
 /**
  * Created by adam on 03/09/2016.
  */
-var mongoose = require('mongoose');
+var mongoose = require('mongoose')
+    , uuid = require("uuid");
 var eventVideoSchema = new mongoose.Schema({
     _id: {
         type: String,
@@ -23,6 +24,6 @@ var eventVideoSchema = new mongoose.Schema({
     event: {type: String, ref: 'event'}
 
 });
-
+eventVideoSchema.index({source: 1, sourceVideoID: 1, eventDataSource: 1}, {unique: true});
 var EventVideo = mongoose.model('eventVideo', eventVideoSchema);
 module.exports = EventVideo;
